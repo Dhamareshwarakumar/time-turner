@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Production Build
+dist/
+build/
+
+# Logs
+*.log
+
+# Editor
+.vscode/*
+
+# OS generated files
+.DS_Store
+
+# Environment variables
+.env
+
+# Parcel-specific
+.parcel-cache/
+.cache/

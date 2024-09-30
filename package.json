@@ -1,0 +1,57 @@
+{
+    "name": "time-turner",
+    "version": "1.0.0",
+    "description": "A simple web app to track my progress on my learnings",
+    "main": "server.js",
+    "scripts": {
+        "start": "NODE_ENV=production node dist/server.js",
+        "dev": "npx nodemon",
+        "build": "npx tsc",
+        "prepare": "husky",
+        "lint": "eslint . --ext .js,.ts",
+        "lint:fix": "eslint . --ext .js,.ts --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dhamareshwarakumar/time-turner.git"
+    },
+    "keywords": [
+        "project",
+        "time",
+        "tracker"
+    ],
+    "author": "Dhamareshwarakumar",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Dhamareshwarakumar/time-turner/issues"
+    },
+    "homepage": "https://github.com/Dhamareshwarakumar/time-turner#readme",
+    "engines": {
+        "node": ">=20.12.2",
+        "npm": ">=10.8.2"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "husky": "^9.1.6",
+        "lint-staged": "^15.2.10"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.4",
+        "@typescript-eslint/eslint-plugin": "^8.7.0",
+        "@typescript-eslint/parser": "^8.7.0",
+        "eslint": "^8.57.1",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.30.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "nodemon": "^3.1.7",
+        "prettier": "3.3.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2"
+    },
+    "lint-staged": {
+        "**/*": "prettier --writ  e --ignore-unknown"
+    }
+}
