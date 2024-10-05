@@ -429,6 +429,38 @@ Portfolio
 |\_ tsconfig.json
 ```
 
+### Error Handling
+
+TODO: https://github.com/Dhamareshwarakumar/time-turner/commit/95cb7ad696d301038266df632a92d051d1e9175d
+
+### Database (MongoDB) Setup
+
+-   Install Mongoose
+
+    -   `npm install mongoose`
+
+-   Create Connection file
+
+    -   `code config/db.ts`
+
+    ```ts
+    import mongoose from 'mongoose';
+
+    const connectDB = () => {
+        if (process.env.NODE_ENV !== 'development') {
+            mongoose.set('autoIndex', false);
+            mongoose.set('autoCreate', false);
+        }
+
+        mongoose
+            .connect(process.env.MONGO_URI as string)
+            .then((instance) => console.info(`Connected to MongoDB: host(${instance.connection.host})`))
+            .catch((err) => console.error('MongoDB Connection Error: ', err));
+    };
+
+    export default connectDB;
+    ```
+
 ### Fireup the app
 
 -   Start at production

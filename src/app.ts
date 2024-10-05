@@ -3,9 +3,11 @@ import globalErrorHandler from './middlewares/errorHandler.middleware';
 import ApiException from './utils/exceptions/ApiException';
 import * as statusCodes from './utils/constants/httpCodes';
 import routerV1 from './routes/v1';
+import connectDB from './config/db';
 
 // App Config
 const app = express();
+connectDB();
 
 // Middlewares
 app.use(express.json());
