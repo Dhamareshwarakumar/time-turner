@@ -4,12 +4,14 @@ import ApiException from './utils/exceptions/ApiException';
 import * as statusCodes from './utils/constants/httpCodes';
 import routerV1 from './routes/v1';
 import connectDB from './config/db';
+import morganLogger from './middlewares/morganLogger.middleware';
 
 // App Config
 const app = express();
 connectDB();
 
 // Middlewares
+app.use(morganLogger());
 app.use(express.json());
 
 // Routes - V1

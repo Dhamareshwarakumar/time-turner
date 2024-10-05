@@ -6,6 +6,7 @@ dist/
 build/
 
 # Logs
+logs/
 *.log
 
 # Editor

@@ -2,10 +2,11 @@ import { NextFunction } from 'express';
 import ApiException from '../utils/exceptions/ApiException';
 import { IRequest, IResponse, IResponseBody } from '../utils/interfaces/vendor/express';
 import { isEmpty } from '../utils/validator.util';
+import logger from '../utils/logger';
 
 const errorHandler = (err: any, _req: IRequest, res: IResponse, _next: NextFunction) => {
     if (!(err instanceof ApiException)) {
-        console.error(err);
+        logger.error(err);
     }
 
     const responseObject: IResponseBody = {
