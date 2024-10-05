@@ -69,7 +69,7 @@ const streamToWinstonRes: morgan.StreamOptions = {
 // :total-time: The time between the request coming into morgan and when the response has finished being written out to the connection, in milliseconds.
 //      - If :total-time is much higher than :response-time, it could indicate network issues or large response bodies.
 const consoleLogReqFormat =
-    ':splitter\n:timestamp [info]: [\x1b[32m:remote-addr :remote-user\x1b[0m]: \x1b[33m:method\x1b[0m \x1b[36m:url\x1b[0m HTTP/:http-version :user-agent';
+    ':timestamp [info]: [\x1b[32m:remote-addr :remote-user\x1b[0m]: \x1b[33m:method\x1b[0m \x1b[36m:url\x1b[0m HTTP/:http-version :user-agent';
 const consoleLogResFormat =
     ':timestamp [info]: [\x1b[32m:remote-addr :remote-user\x1b[0m]: :statusColor :response-time/:total-time ms';
 const winstonLogReqFormat = ':remote-addr :remote-user :method :url HTTP/:http-version :user-agent';

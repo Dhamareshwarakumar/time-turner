@@ -6,7 +6,7 @@ import logger from '../utils/logger';
 
 const errorHandler = (err: any, _req: IRequest, res: IResponse, _next: NextFunction) => {
     if (!(err instanceof ApiException)) {
-        logger.error(err);
+        logger.error('Unknown Exception:', err);
     }
 
     const responseObject: IResponseBody = {
@@ -15,6 +15,11 @@ const errorHandler = (err: any, _req: IRequest, res: IResponse, _next: NextFunct
 
     if (!isEmpty(err.errors)) {
         responseObject.err = err.errors;
+    }
+
+    if (err instanceof ApiException && err.status === 500) {
+        logger.error('Internal Server Error: ' + err.message);
+        responseObject.msg = 'Something went wrong, Please try again later';
     }
 
     res.status(err.status || 500).json(responseObject);

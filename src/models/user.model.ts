@@ -3,10 +3,11 @@ import mongoose, { Model, Schema, MongooseError } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 interface IUser {
+    _id?: string;
     name: string;
     email: string;
     password: string;
-    salt: string;
+    salt?: string;
 }
 
 interface IUserMethods {
@@ -15,9 +16,9 @@ interface IUserMethods {
 }
 
 interface IUserModel extends Model<IUser, {}, IUserMethods> {
-    findUserByEmail(email: string): Promise<IUser>;
-    addUser(data: IUser): Promise<IUser>;
-    updateUser(identifier: any, data: IUser): Promise<IUser>;
+    findUserByEmail(email: string): Promise<IUser & IUserMethods>;
+    addUser(data: IUser): Promise<IUser & IUserMethods>;
+    updateUser(identifier: any, data: IUser): Promise<IUser & IUserMethods>;
 }
 
 const userSchema = new Schema<IUser, IUserModel, IUserMethods>(
@@ -45,7 +46,8 @@ const userSchema = new Schema<IUser, IUserModel, IUserMethods>(
         },
         salt: {
             type: String,
-            default: uuidv4(),
+            required: true,
+            default: () => uuidv4(),
         },
     },
     {
@@ -63,7 +65,10 @@ userSchema.pre('save', function (next) {
 userSchema.methods.hashPassword = function (plainPassword: string): string {
     if (!plainPassword) return '';
     try {
-        return crypto.createHmac('sha256', this.salt).update(plainPassword).digest('hex');
+        return crypto
+            .createHmac('sha256', this.salt as string)
+            .update(plainPassword)
+            .digest('hex');
     } catch (err) {
         throw new MongooseError(`[UserModel][hashPassword]: ${err}`);
     }
@@ -76,16 +81,16 @@ userSchema.methods.authenticate = function (plainPassword: string): boolean {
 };
 
 // Static Methods
-userSchema.statics.findUserByEmail = async function (email) {
-    return await this.findOne({ email });
+userSchema.statics.findUserByEmail = async function (email: string): Promise<(IUser & IUserMethods) | null> {
+    return await this.findOne({ email }).exec();
 };
 
-userSchema.statics.addUser = async function (data) {
+userSchema.statics.addUser = async function (data): Promise<(IUser & IUserMethods) | null> {
     return await this.create(data);
 };
 
-userSchema.statics.updateUser = async function (identifier, data) {
-    return await this.updateOne(identifier, data);
+userSchema.statics.updateUser = async function (identifier, data: IUser): Promise<(IUser & IUserMethods) | null> {
+    return await this.findOneAndUpdate(identifier, data).exec();
 };
 
 const User = mongoose.model<IUser, IUserModel>('User', userSchema);

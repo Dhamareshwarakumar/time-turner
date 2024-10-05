@@ -1,0 +1,23 @@
+@BASE_URL=http://127.0.0.1:7001/api/v1/auth
+@HTTP_VERSION = HTTP/1.1
+
+### User Registration
+POST {{BASE_URL}}/register {{HTTP_VERSION}}
+Content-Type: application/json
+
+{
+    "name": "   damareshwarakumar gandikota",
+    "email": "damareshwarakumar@google.COM    ",
+    "password": "PA$$word12"
+}
+
+
+
+### User Login
+POST {{BASE_URL}}/login {{HTTP_VERSION}}
+Content-Type: application/json
+
+{
+    "email": "damareshwarakumar@google.com",
+    "password": "PA$$word12"
+}

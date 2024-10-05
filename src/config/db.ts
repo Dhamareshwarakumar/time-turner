@@ -16,7 +16,7 @@ const connectDB = () => {
     mongoose
         .connect(process.env.MONGO_URI as string)
         .then((instance) => logger.info(`Connected to MongoDB. host(${instance.connection.host})`))
-        .catch((err) => logger.error(`MongoDB Connection Error: ${err}'`));
+        .catch((err) => logger.error('MongoDB Connection Error:', err));
 
     // TODO: Handle Mongoose Events
 };
